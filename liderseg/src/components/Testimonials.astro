@@ -1,0 +1,63 @@
+---
+import VideoEmbed from './VideoEmbed.astro';
+
+const testimonials = [
+  {
+    quote:
+      'Após sofrer um acidente de trânsito e fraturar o braço, o Júnior da cidade de Itauçu/GO, entrou em contato com a Liderseg para receber toda a ajuda necessária que tinha por objetivo garantir seus direitos indenizatórios através do Seguro DPVAT.',
+    name: 'Júnior',
+    detail: 'Itauçu/GO · Cliente que recebeu Seguro DPVAT',
+    initial: 'J',
+    video: 'wZH9-JbDnRE',
+    videoTitle: 'Depoimento - Júnior',
+  },
+  {
+    quote:
+      'Conheça a história do Venâncio, que mora em Damolândia/GO. Juntamente com sua esposa, eles sofreram um acidente de trânsito. Por ocasião da indicação de um amigo, eles entraram em contato com a Liderseg para obter ajuda e garantir seus direitos.',
+    name: 'Venâncio',
+    detail: 'Damolândia/GO · Cliente que recebeu Seguro DPVAT',
+    initial: 'V',
+    video: 'f1hjZp6rtxY',
+    videoTitle: 'Depoimento - Venâncio',
+  },
+];
+---
+
+<section class="bg-white py-20 sm:py-28">
+  <div class="mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="text-xs font-bold uppercase tracking-widest text-navy-600">Receba sua indenização conosco.</span>
+      <h2 class="mt-3 text-3xl font-extrabold text-navy-900 sm:text-4xl">Quem confia em nosso trabalho</h2>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-2">
+      {
+        testimonials.map((t) => (
+          <figure class="relative flex flex-col rounded-3xl bg-navy-100/50 p-6 ring-1 ring-navy-900/5 sm:p-8">
+            <VideoEmbed id={t.video} title={t.videoTitle} />
+            <blockquote class="relative mt-6 leading-relaxed text-slate-700">
+              <svg
+                class="absolute -top-2 -left-1 -z-0 h-8 w-8 text-gold-400/50"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                aria-hidden="true"
+              >
+                <path d="M10 7H6a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h2a1 1 0 0 0 1-1v-3H6v-3h4V7Zm11 0h-4a3 3 0 0 0-3 3v4a3 3 0 0 0 3 3h2a1 1 0 0 0 1-1v-3h-3v-3h4V7Z" />
+              </svg>
+              <span class="relative">{t.quote}</span>
+            </blockquote>
+            <figcaption class="mt-8 flex items-center gap-4 border-t border-navy-900/10 pt-6">
+              <span class="flex h-12 w-12 items-center justify-center rounded-full bg-navy-800 text-lg font-bold text-gold-400">
+                {t.initial}
+              </span>
+              <span>
+                <span class="block font-bold text-navy-900">{t.name}</span>
+                <span class="block text-sm text-slate-600">{t.detail}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </div>
+</section>

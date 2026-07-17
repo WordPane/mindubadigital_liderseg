@@ -1,0 +1,31 @@
+---
+import { SITE } from '../consts';
+---
+
+<footer class="bg-navy-950 py-10">
+  <div class="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 text-center sm:px-6">
+    <img src="/assets/logo-liderseg.png" alt="" class="h-10 w-auto" width="362" height="150" loading="lazy" />
+    <nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-navy-100/70">
+      <a
+        href={SITE.privacyUrl}
+        class="transition hover:text-gold-400"
+      >
+        Política de Privacidade
+      </a>
+      <a
+        href={`https://www.instagram.com/${SITE.instagram}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="transition hover:text-gold-400"
+      >
+        @{SITE.instagram}
+      </a>
+      <a href={`https://wa.me/${SITE.phone}`} target="_blank" rel="noopener noreferrer" class="transition hover:text-gold-400">
+        {SITE.phoneDisplay}
+      </a>
+    </nav>
+    <p class="text-xs text-navy-100/70">
+      Liderseg Seguros © 2025. Todos os direitos reservados. CNPJ: {SITE.cnpj}
+    </p>
+  </div>
+</footer>

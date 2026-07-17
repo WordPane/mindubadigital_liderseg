@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  id: string;
+  title: string;
+  class?: string;
+}
+
+const { id, title, class: className = '' } = Astro.props;
+
+const posters = import.meta.glob<{ default: ImageMetadata }>('../assets/videos/*.jpg', { eager: true });
+const poster = posters[`../assets/videos/${id}.jpg`]?.default;
+---
+
+<button
+  type="button"
+  data-video-id={id}
+  aria-label={`Assistir vídeo: ${title}`}
+  class:list={[
+    'group relative block aspect-video w-full cursor-pointer overflow-hidden rounded-2xl bg-navy-950 ring-1 ring-navy-900/10',
+    className,
+  ]}
+>
+  <Image
+    src={poster}
+    alt=""
+    widths={[480, 768, 1280]}
+    sizes="(max-width: 768px) 100vw, 600px"
+    loading="lazy"
+    class="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-105"
+  />
+  <span class="absolute inset-0 bg-navy-950/25 transition duration-300 group-hover:bg-navy-950/10"></span>
+  <span
+    class="absolute top-1/2 left-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-gold-400 text-navy-900 shadow-xl shadow-navy-950/40 transition duration-300 group-hover:scale-110 group-hover:bg-gold-500 sm:h-[4.5rem] sm:w-[4.5rem]"
+  >
+    <svg class="ml-1 h-7 w-7" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5.14v13.72c0 .8.87 1.3 1.56.88l10.5-6.86a1.03 1.03 0 0 0 0-1.76L9.56 4.26A1.03 1.03 0 0 0 8 5.14Z"></path>
+    </svg>
+  </span>
+  <span
+    class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-navy-950/70 to-transparent px-4 pt-8 pb-3 text-left text-xs font-medium text-white/90"
+  >
+    {title}
+  </span>
+</button>
+
+<script is:inline>
+  if (!window.__videoFacadeInit) {
+    window.__videoFacadeInit = true;
+    document.addEventListener('click', (event) => {
+      const btn = event.target.closest('[data-video-id]');
+      if (!btn) return;
+      const iframe = document.createElement('iframe');
+      iframe.src = `https://www.youtube.com/embed/${btn.dataset.videoId}?autoplay=1&rel=0`;
+      iframe.title = btn.getAttribute('aria-label') || 'Vídeo';
+      iframe.allow = 'accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture';
+      iframe.allowFullscreen = true;
+      iframe.className = 'aspect-video w-full rounded-2xl';
+      btn.replaceWith(iframe);
+    });
+  }
+</script>

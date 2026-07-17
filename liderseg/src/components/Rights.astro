@@ -1,0 +1,96 @@
+---
+import { whatsappLink } from '../consts';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+import VideoEmbed from './VideoEmbed.astro';
+
+const rights = [
+  {
+    title: 'Seguro RCF ou Seguro para Terceiros',
+    question: 'Você sofreu um acidente de trânsito e o motorista responsável pelo acidente tinha um seguro?',
+    text: 'Se o motorista causador do acidente tinha Seguro RCF, também conhecido como Seguro para Terceiros, você tem direito a uma indenização.',
+    highlight:
+      'A Liderseg vai garantir que você receba um valor justo cobrindo danos materiais e danos corporais. Não deixe esse seguro passar despercebido.',
+    message: 'Olá! Sofri um acidente de trânsito e o causador tinha Seguro RCF. Quero falar com um especialista.',
+    video: 'WSBCSXCzsxc',
+    videoTitle: 'Seguro RCF, quando tenho direito?',
+  },
+  {
+    title: 'Seguro de Vida',
+    question: 'Sabia que você pode ter direito a uma indenização pelo seu Seguro de Vida?',
+    text: 'Se você sofreu um acidente e possui um Seguro de Vida, que seja contratado diretamente pelo banco, ou se você trabalha em uma grande empresa, e até para você que é entregador de aplicativo do tipo iFood, Uber, entre outros.',
+    highlight:
+      'A Liderseg pode ajudar a receber a compensação que você merece. Muitas pessoas possuem esse tipo de seguro. E nós somos especializados para garantir que você receba um valor justo.',
+    message: 'Olá! Sofri um acidente e tenho (ou posso ter) Seguro de Vida. Quero saber meus direitos.',
+    video: 'JDIreiNhygs',
+    videoTitle: 'Seguro de Vida, quando tenho direito?',
+  },
+  {
+    title: 'Auxílio-Acidente',
+    question:
+      'Você sofreu um acidente de qualquer natureza e ficou com sequelas que atrapalham o desempenho da sua função no trabalho?',
+    text: 'Saiba que você pode ter direito a uma indenização chamada auxílio-acidente. O auxílio-acidente é a indenização que você precisa para garantir a complementação de sua renda em virtude das sequelas resultantes pelo acidente.',
+    highlight: 'A Liderseg vai cuidar do seu processo para garantir que você receba um valor justo.',
+    message: 'Olá! Fiquei com sequelas após um acidente e quero saber sobre o auxílio-acidente.',
+    video: 'DlnpFh2P44g',
+    videoTitle: 'Auxílio-Acidente, quando tenho direito?',
+  },
+  {
+    title: 'Auxílio-Doença',
+    question: 'Você sabia que pode ter direito ao auxílio-doença mesmo que não esteja trabalhando registrado?',
+    text: 'O auxílio-doença é um benefício do INSS que oferece um suporte financeiro para segurados que estejam temporariamente incapacitados para o trabalho devido ao seu acidente. E o melhor, em alguns casos, mesmo que você não tenha contribuições recentes.',
+    highlight:
+      'A Liderseg pode te auxiliar a receber esses direitos e vai cuidar do seu processo para garantir que você receba um valor justo.',
+    message: 'Olá! Estou incapacitado para o trabalho após um acidente e quero saber sobre o auxílio-doença.',
+    video: '5lCxuZgh3WM',
+    videoTitle: 'Auxílio-Doença, quando tenho direito?',
+  },
+];
+---
+
+<section id="direitos" class="relative bg-navy-100/60 py-20 sm:py-28">
+  <div class="dot-grid-dark absolute inset-0"></div>
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="mx-auto max-w-3xl text-center">
+      <span class="text-xs font-bold uppercase tracking-widest text-navy-600">Quero meus direitos</span>
+      <h2 class="mt-3 text-3xl font-extrabold text-navy-900 sm:text-4xl">
+        Conheça seus direitos e como iremos te ajudar.
+      </h2>
+    </div>
+
+    <div class="mt-14 grid gap-6 md:grid-cols-2">
+      {
+        rights.map((item) => (
+          <article class="group flex flex-col rounded-3xl bg-white p-6 shadow-sm ring-1 ring-navy-900/5 transition duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-navy-900/10 sm:p-8">
+            <VideoEmbed id={item.video} title={item.videoTitle} />
+            <h3 class="mt-6 text-xl font-bold text-navy-900">{item.title}</h3>
+            <p class="mt-3 font-semibold text-navy-700">{item.question}</p>
+            <p class="mt-2 leading-relaxed text-slate-600">{item.text}</p>
+            <p class="mt-3 leading-relaxed text-slate-600">{item.highlight}</p>
+
+            <div class="mt-auto pt-6">
+              <div class="mb-5 flex flex-wrap gap-2">
+                <span class="rounded-full bg-gold-400/15 px-3 py-1 text-xs font-semibold text-navy-800 ring-1 ring-gold-400/50">
+                  Somos Especialistas
+                </span>
+                <span class="rounded-full bg-gold-400/15 px-3 py-1 text-xs font-semibold text-navy-800 ring-1 ring-gold-400/50">
+                  Você só paga, se receber
+                </span>
+              </div>
+              <a
+                href={whatsappLink(item.message)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Falar com consultor sobre ${item.title}`}
+                class="inline-flex items-center gap-2 font-semibold text-wa-700 underline-offset-4 transition hover:gap-3 hover:underline"
+              >
+                <WhatsAppIcon class="h-5 w-5" />
+                Falar com Consultor
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>

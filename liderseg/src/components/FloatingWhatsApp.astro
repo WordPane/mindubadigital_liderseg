@@ -1,0 +1,14 @@
+---
+import { WHATSAPP_DEFAULT } from '../consts';
+import WhatsAppIcon from './WhatsAppIcon.astro';
+---
+
+<a
+  href={WHATSAPP_DEFAULT}
+  target="_blank"
+  rel="noopener noreferrer"
+  aria-label="Falar com um especialista no WhatsApp"
+  class="wa-pulse fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-wa-500 text-navy-950 shadow-xl shadow-wa-500/40 transition hover:scale-110 hover:bg-wa-600"
+>
+  <WhatsAppIcon class="h-7 w-7" />
+</a>

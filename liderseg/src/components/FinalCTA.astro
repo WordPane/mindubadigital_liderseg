@@ -1,0 +1,24 @@
+---
+import { WHATSAPP_DEFAULT } from '../consts';
+import WhatsAppButton from './WhatsAppButton.astro';
+---
+
+<section class="relative overflow-hidden bg-gold-400 py-20 sm:py-24">
+  <div class="dot-grid-dark absolute inset-0"></div>
+  <div class="relative mx-auto max-w-4xl px-4 text-center sm:px-6">
+    <h2 class="text-3xl font-extrabold text-navy-900 sm:text-4xl lg:text-5xl">
+      Não deixe seus direitos passarem despercebidos.
+    </h2>
+    <p class="mx-auto mt-4 max-w-2xl text-lg font-medium text-navy-800">
+      Fale agora com um especialista da Liderseg no WhatsApp e descubra quanto você pode receber de indenização. <strong class="font-bold">Você só paga, se receber.</strong>
+    </p>
+    <div class="mt-9">
+      <WhatsAppButton
+        href={WHATSAPP_DEFAULT}
+        size="lg"
+        label="Chamar no WhatsApp"
+        sublabel="Resposta rápida · Sem compromisso"
+      />
+    </div>
+  </div>
+</section>

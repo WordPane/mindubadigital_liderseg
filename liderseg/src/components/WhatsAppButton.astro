@@ -1,0 +1,36 @@
+---
+import WhatsAppIcon from './WhatsAppIcon.astro';
+
+interface Props {
+  href: string;
+  label?: string;
+  sublabel?: string;
+  size?: 'md' | 'lg';
+  class?: string;
+}
+
+const {
+  href,
+  label = 'Falar com especialista no WhatsApp',
+  sublabel,
+  size = 'md',
+  class: className = '',
+} = Astro.props;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class:list={[
+    'group inline-flex max-w-full items-center justify-center gap-3 rounded-full bg-wa-500 font-semibold text-navy-950 shadow-lg shadow-wa-500/30 transition-all duration-200 hover:-translate-y-0.5 hover:bg-wa-600 hover:shadow-xl hover:shadow-wa-500/40 focus:outline-none focus-visible:ring-4 focus-visible:ring-wa-500/50',
+    size === 'lg' ? 'px-6 py-4 text-base sm:px-8 sm:text-lg' : 'px-6 py-3 text-base',
+    className,
+  ]}
+>
+  <WhatsAppIcon class:list={['shrink-0', size === 'lg' ? 'w-7 h-7' : 'w-5 h-5']} />
+  <span class="flex min-w-0 flex-col items-start leading-tight">
+    <span set:html={label} />
+    {sublabel && <span class="text-xs font-normal opacity-90">{sublabel}</span>}
+  </span>
+</a>

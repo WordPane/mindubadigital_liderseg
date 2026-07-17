@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import { WHATSAPP_DEFAULT } from '../consts';
+import WhatsAppButton from './WhatsAppButton.astro';
+import lojaImg from '../assets/loja-liderseg.jpg';
+
+const stats = [
+  {
+    value: '+10.000',
+    label: 'Processos Concluídos',
+    text: 'Confiança, segurança e apoio no momento em que você mais necessita de ajuda.',
+  },
+  {
+    value: '98%',
+    label: 'de Casos Solucionados',
+    text: 'Minimize as consequências desfavoráveis com nossos rígidos protocolos operacionais.',
+  },
+];
+---
+
+<section class="relative overflow-hidden bg-navy-900 py-20 sm:py-28">
+  <div class="absolute inset-0 bg-gradient-to-bl from-navy-950 via-navy-900 to-navy-800"></div>
+  <div class="absolute top-0 left-1/3 h-80 w-80 rounded-full bg-gold-400/10 blur-3xl"></div>
+
+  <div class="relative mx-auto max-w-6xl px-4 sm:px-6">
+    <div class="grid items-center gap-12 lg:grid-cols-2">
+      <div>
+        <span class="text-xs font-bold uppercase tracking-widest text-gold-400">
+          Temos a missão de auxiliar vítimas de acidente a receber a sua indenização.
+        </span>
+        <h2 class="mt-4 text-3xl font-extrabold text-white sm:text-4xl">
+          Na hora mais difícil, <span class="text-gold-400 italic">conte com a Liderseg</span>
+        </h2>
+        <p class="mt-5 text-lg leading-relaxed text-navy-100/90">
+          Somos uma empresa de referência no mercado de indenizações que busca ajudar vítimas de acidentes a receber
+          as indenizações que merecem. Com mais de 10 anos de experiência e atendimento em Goiás e regiões vizinhas,
+          já fizemos a diferença na vida de milhares de brasileiros.
+        </p>
+
+        <div class="mt-8 grid gap-4 sm:grid-cols-2">
+          {
+            stats.map((stat) => (
+              <div class="rounded-2xl bg-white/5 p-5 ring-1 ring-white/10">
+                <p class="text-3xl font-extrabold text-gold-400">{stat.value}</p>
+                <p class="mt-1 font-semibold text-white">{stat.label}</p>
+                <p class="mt-2 text-sm leading-relaxed text-navy-100/80">{stat.text}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="mt-9">
+          <WhatsAppButton href={WHATSAPP_DEFAULT} label="Quero falar com a Liderseg" />
+        </div>
+      </div>
+
+      <div class="relative mx-auto max-w-lg lg:max-w-none">
+        <!-- brilho dourado ao redor -->
+        <div class="absolute -inset-6 rounded-[2.5rem] bg-gold-400/15 blur-2xl"></div>
+        <!-- canto decorativo de pontos -->
+        <div class="dot-grid absolute -top-10 -right-6 hidden h-44 w-44 sm:block"></div>
+        <!-- moldura dourada deslocada -->
+        <div class="absolute inset-0 translate-x-5 translate-y-5 rounded-[2rem] border-2 border-gold-400/50"></div>
+
+        <!-- card da foto -->
+        <div class="group relative rounded-[2rem] bg-gradient-to-br from-gold-400/80 via-gold-400/25 to-navy-600/60 p-1.5 shadow-2xl shadow-navy-950/60">
+          <div class="relative overflow-hidden rounded-[1.75rem]">
+            <Image
+              src={lojaImg}
+              alt="Fachada da Liderseg Indenizações em Goiânia - GO"
+              widths={[480, 690]}
+              sizes="(max-width: 1024px) 100vw, 560px"
+              loading="lazy"
+              class="w-full object-cover transition duration-700 group-hover:scale-105"
+            />
+            <!-- chip flutuante sobre a foto -->
+            <div class="absolute inset-x-4 bottom-4 flex items-center gap-3 rounded-2xl bg-navy-950/70 px-5 py-3.5 ring-1 ring-white/15 backdrop-blur-md">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gold-400 text-navy-900">
+                <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z"></path>
+                </svg>
+              </span>
+              <span>
+                <span class="block text-sm font-semibold text-white">Atendimento em Goiás e regiões vizinhas</span>
+                <span class="block text-xs text-navy-100/70">Na hora mais difícil, conte com a Liderseg</span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
