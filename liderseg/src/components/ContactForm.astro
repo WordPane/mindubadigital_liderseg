@@ -1,0 +1,53 @@
+<form id="contact-form" class="mx-auto mt-8 max-w-lg rounded-2xl bg-white p-6 text-left shadow-xl" action="/captar-contato.php" method="post">
+  <h3 class="mb-2 text-xl font-bold text-navy-900">Receba orientação pelo WhatsApp</h3>
+  <p class="mb-5 text-navy-800">Preencha seus dados para continuar a conversa no WhatsApp.</p>
+  <label for="contact-name" class="block font-semibold text-navy-900">Nome</label>
+  <input id="contact-name" name="name" autocomplete="name" required minlength="2" maxlength="100" class="mt-2 w-full rounded-lg border border-navy-900/20 px-4 py-3 text-navy-900 focus:outline-2 focus:outline-navy-700" />
+  <label for="contact-phone" class="mt-5 block font-semibold text-navy-900">WhatsApp com DDD</label>
+  <input id="contact-phone" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="(62) 99999-9999" required maxlength="22" class="mt-2 w-full rounded-lg border border-navy-900/20 px-4 py-3 text-navy-900 focus:outline-2 focus:outline-navy-700" />
+  <div hidden aria-hidden="true"><label>Empresa<input name="company" tabindex="-1" autocomplete="off" /></label></div>
+  <input type="hidden" name="submission_id" />
+  <p class="mt-4 text-sm text-navy-800">Seus dados serão registrados para o atendimento. Ao continuar, você será direcionado ao WhatsApp da Liderseg. Veja nossa <a href="/politica-de-privacidade" class="underline">Política de Privacidade</a>.</p>
+  <button type="submit" class="mt-5 w-full rounded-full bg-wa-500 px-6 py-4 font-bold text-navy-950 transition hover:bg-wa-600 disabled:opacity-60">Continuar no WhatsApp</button>
+  <p id="contact-status" role="status" aria-live="polite" class="mt-4 text-sm font-medium text-navy-900"></p>
+</form>
+<script>
+  import { whatsappLink } from '../consts';
+  const form = document.querySelector<HTMLFormElement>('#contact-form');
+  if (form) {
+    const phone = form.elements.namedItem('whatsapp') as HTMLInputElement;
+    const name = form.elements.namedItem('name') as HTMLInputElement;
+    const id = form.elements.namedItem('submission_id') as HTMLInputElement;
+    const button = form.querySelector<HTMLButtonElement>('button')!;
+    const status = form.querySelector<HTMLElement>('#contact-status')!;
+    id.value = crypto.randomUUID();
+    phone.addEventListener('input', () => phone.setCustomValidity(''));
+    name.addEventListener('input', () => name.setCustomValidity(''));
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      name.value = name.value.trim();
+      let digits = phone.value.replace(/\D/g, '');
+      if (digits.length === 13 && digits.startsWith('55')) digits = digits.slice(2);
+      phone.setCustomValidity(/^[1-9]{2}9\d{8}$/.test(digits) ? '' : 'Informe um celular com DDD e 9 dígitos.');
+      name.setCustomValidity(name.value.length >= 2 ? '' : 'Informe seu nome.');
+      if (!form.reportValidity()) return;
+      if (button.disabled) return;
+      const customerName = name.value;
+      button.disabled = true;
+      button.textContent = 'Enviando…';
+      status.textContent = '';
+      try {
+        const response = await fetch(form.action, { method: 'POST', body: new FormData(form), signal: AbortSignal.timeout(30000) });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true) throw new Error(result.message || 'Não foi possível enviar. Tente novamente.');
+        status.textContent = 'Dados registrados! Abrindo o WhatsApp…';
+        window.location.assign(whatsappLink(`Olá! Meu nome é ${customerName}. Quero falar com um especialista sobre meus direitos à indenização.`));
+      } catch {
+        status.textContent = 'Não conseguimos confirmar o envio. Tente novamente ou use o botão de WhatsApp abaixo.';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Continuar no WhatsApp';
+      }
+    });
+  }
+</script>
